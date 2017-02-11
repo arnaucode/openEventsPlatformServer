@@ -31,7 +31,7 @@ app.use(morgan('dev'));
 var userMdl = require('./models/userModel')(app, mongoose);
 var userCtrl = require('./controllers/userController');
 var eventMdl = require('./models/eventModel')(app, mongoose);
-//var eventCtrl = require('./controllers/eventController');
+var eventCtrl = require('./controllers/eventController');
 var alertMdl = require('./models/alertModel')(app, mongoose);
 //var alertCtrl = require('./controllers/alertController');
 
@@ -56,6 +56,13 @@ apiRoutes.route('/users')
     .get(userCtrl.getAllUsers);
 apiRoutes.route('/users/id/:userid')
     .get(userCtrl.getUserById);
+
+apiRoutes.route('/events')
+    .get(eventCtrl.getAllEvents);
+apiRoutes.route('/events/id/:eventid')
+    .get(eventCtrl.getEventById);
+apiRoutes.route('/events/category/:category')
+    .get(eventCtrl.getEventsByCategory);
 
 // route middleware to verify a token
 apiRoutes.use(function(req, res, next) {
@@ -87,6 +94,10 @@ apiRoutes.use(function(req, res, next) {
 
     }
 }); //fi verificació de token
+
+
+apiRoutes.route('/events')
+    .post(eventCtrl.addEvent);
 
 app.use('/api', apiRoutes);
 // end of API routes -------------------------------------

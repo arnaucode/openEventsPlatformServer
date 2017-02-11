@@ -15,7 +15,7 @@ var alertSchema = new Schema({
         geolocation: {
             lat: {type: Number},
             long: {type: Number},
-            name: { type: String, required: true }
+            name: { type: String }
         }
     },
     user: {

@@ -8,6 +8,8 @@ var mongoose = require('mongoose');
 
 var userModel = mongoose.model('userModel');
 
+var pageSize = config.pageSize;
+
 exports.signup = function (req, res) {
     var user = new userModel({
         username: req.body.username,
@@ -91,7 +93,7 @@ exports.login = function (req, res) {
 exports.getAllUsers = function(req, res) {
     userModel.find()
         .limit(Number(req.query.pageSize))
-        .skip(Number(req.query.pageSize) * Number(req.query.page))
+        .skip(pageSize * Number(req.query.page))
         .exec(function (err, users) {
             if (err) return res.send(500, err.message);
             res.status(200).jsonp(users);

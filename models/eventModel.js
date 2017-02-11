@@ -4,10 +4,11 @@ var mongoose = require('mongoose'),
 var mongooseUniqueValidator = require('mongoose-unique-validator');
 
 var eventSchema = new Schema({
-    title: { type: String },
-    description:   { type: String },
+    title: { type: String, required: true },
+    description:   { type: String, required: true },
     img:   { type: String },
-    date: { type: Date },
+    generateddate: { type: Date, required: true },
+    date: { type: Date, required: true },
     categories: [{
         name: {type: String}
     }],
@@ -18,7 +19,7 @@ var eventSchema = new Schema({
         geolocation: {
             lat: {type: Number},
             long: {type: Number},
-            name: { type: String, required: true }
+            name: { type: String}
         }
     },
     user: {
