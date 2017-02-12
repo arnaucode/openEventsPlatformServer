@@ -61,6 +61,8 @@ apiRoutes.route('/events')
     .get(eventCtrl.getAllEvents);
 apiRoutes.route('/events/id/:eventid')
     .get(eventCtrl.getEventById);
+apiRoutes.route('/events/following')
+    .post(eventCtrl.getEventsByFollowingArray);
 apiRoutes.route('/events/category/:category')
     .get(eventCtrl.getEventsByCategory);
 
@@ -98,6 +100,8 @@ apiRoutes.use(function(req, res, next) {
 
 apiRoutes.route('/events')
     .post(eventCtrl.addEvent);
+apiRoutes.route('/events/id/:eventid')
+    .delete(eventCtrl.deleteEvent);
 
 app.use('/api', apiRoutes);
 // end of API routes -------------------------------------

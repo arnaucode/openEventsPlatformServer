@@ -65,18 +65,53 @@ exports.addEvent = function(req, res) {
 		}
 	});//end of usermodel.find
 };
+exports.deleteEvent = function(req, res) {
+	userModel.findOne({'tokens.token': req.headers['x-access-token']})
+	.exec(function(err, user){
+		if (err) return res.send(500, err.message);
+		eventModel.findOne({
+			_id: req.params.eventid,
+			user: user._id
+		})
+		.exec(function(err, event) {
+			if (err) return res.send(500, err.message);
+			if(event.user.equals(user._id))
+			{
+				event.remove(function(err) {
+					if(err) return res.send(500, err.message);
 
+					console.log("deleted");
+					exports.getAllEvents(req, res);
+				});
+			}
+		});
+	});
+};//funciona, pero no esborra les referències dels users als events que s'esborren. Més endavant caldria fer-ho.
 
 /*
 un get events by following, que seria:
 s'envia un post /events/following
 amb la data:
 {
-    users: ['user1', 'user4', 'user8']
+  "following": ["user1", "user2", "user3"]
 }
 que bàsicament és una array amb els followings que tens
 això retorna els events d'aquests users que segueixes
 */
+
+exports.getEventsByFollowingArray = function(req, res) {
+	eventModel.find({
+        date: {$gte: new Date()},
+        'username': req.body.users
+    })
+	.sort('date')
+    .limit(pageSize)
+    .skip(pageSize * Number(req.query.page))
+    .exec(function (err, events) {
+        if (err) return res.send(500, err.message);
+        res.status(200).jsonp(events);
+    });
+};
 
 /*
 un get events by categories, que seria:
