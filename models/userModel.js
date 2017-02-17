@@ -32,7 +32,7 @@ var userSchema = new Schema({
         direction: { type: String },
         city:   { type: String },
         district: { type: String },
-        geolocation: {
+        geo: {
             lat: {type: Number},
             long: {type: Number},
             name: { type: String}
