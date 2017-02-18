@@ -11,6 +11,8 @@ var pageSize=config.pageSize;
 
 exports.getAllEvents = function(req, res) {
 	eventModel.find({date: {$gte: new Date()}})
+	.lean()
+    .populate('user', 'username')
 	.sort('date')
     .limit(pageSize)
     .skip(pageSize * Number(req.query.page))
@@ -22,7 +24,7 @@ exports.getAllEvents = function(req, res) {
 exports.getEventById = function (req, res) {
     eventModel.findOne({_id: req.params.eventid})
     .lean()
-    .populate('user', 'username avatar telegram phone')
+    .populate('user', 'username img description')
     .exec(function (err, event) {
         if (err) return res.send(500, err.message);
         if (!event) {
