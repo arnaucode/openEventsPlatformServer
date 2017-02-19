@@ -14,6 +14,7 @@ exports.signup = function (req, res) {
     var user = new userModel({
         username: req.body.username,
         password: crypto.createHash('sha256').update(req.body.password).digest('base64'),
+        shortDescription: req.body.shortDescription,
         description: req.body.description,
         email: req.body.email
     });
@@ -103,7 +104,7 @@ exports.getAllUsers = function(req, res) {
 exports.getUserById = function (req, res) {
     userModel.findOne({_id: req.params.userid})
     .lean()
-    .populate('events', 'title description img date')
+    .populate('events', 'title shortDescription description img date')
     .exec(function (err, user) {
         if (err) return res.send(500, err.message);
         if (!user) {

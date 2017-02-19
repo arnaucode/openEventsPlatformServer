@@ -19,6 +19,7 @@ var userSchema = new Schema({
         lastLogin: {type: Date, select: false},
         birthdate: {type: Date, select: false},
     }],
+    shortDescription:   { type: String },
     description:   { type: String },
     img:   { type: String, default: "https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" },
     contact: {
