@@ -11,7 +11,8 @@ var pageSize=config.pageSize;
 
 exports.getAllEvents = function(req, res) {
 	eventModel.find({
-		date: {$gte: new Date()}//cal filtrar per type d'event, de si es alert o no
+		date: {$gte: new Date()},
+		type: {$nin: ["alert"]}//cal filtrar per type d'event, aquí només agafem els type: alert
 	})
 	.lean()
     .populate('user', 'username img shortDescription')

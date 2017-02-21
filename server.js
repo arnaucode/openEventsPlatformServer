@@ -32,7 +32,7 @@ var userMdl = require('./models/userModel')(app, mongoose);
 var userCtrl = require('./controllers/userController');
 var eventMdl = require('./models/eventModel')(app, mongoose);
 var eventCtrl = require('./controllers/eventController');
-var alertMdl = require('./models/alertModel')(app, mongoose);
+//var alertMdl = require('./models/alertModel')(app, mongoose);
 //var alertCtrl = require('./controllers/alertController');
 
 //CORS
