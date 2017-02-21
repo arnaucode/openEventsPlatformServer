@@ -25,7 +25,8 @@ var eventSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'userModel'
-    }
+    },
+    type: {type: String}
 });
 
 eventSchema.plugin(mongooseUniqueValidator);

@@ -59,6 +59,8 @@ apiRoutes.route('/users/id/:userid')
 
 apiRoutes.route('/events')
     .get(eventCtrl.getAllEvents);
+apiRoutes.route('/alerts')
+    .get(eventCtrl.getAllAlerts);
 apiRoutes.route('/events/id/:eventid')
     .get(eventCtrl.getEventById);
 apiRoutes.route('/events/following')
@@ -100,6 +102,8 @@ apiRoutes.use(function(req, res, next) {
 
 apiRoutes.route('/events')
     .post(eventCtrl.addEvent);
+apiRoutes.route('/alerts')
+    .post(eventCtrl.addAlert);
 apiRoutes.route('/events/id/:eventid')
     .delete(eventCtrl.deleteEvent);
 
