@@ -67,6 +67,8 @@ apiRoutes.route('/events/following')
     .post(eventCtrl.getEventsByFollowingArray);
 apiRoutes.route('/events/category/:category')
     .get(eventCtrl.getEventsByCategory);
+apiRoutes.route('/events/day/:day')
+    .get(eventCtrl.getEventsByDay);
 
 apiRoutes.route('/categoriesList')
     .get(eventCtrl.getCategoriesList);

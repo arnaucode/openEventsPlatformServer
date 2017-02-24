@@ -210,3 +210,21 @@ exports.getEventsByCategory = function(req, res) {
         res.status(200).jsonp(events);
     });
 };
+
+exports.getEventsByDay = function(req, res) {
+	var dayRequested= new Date(req.params.day);
+	eventModel.find({
+        date: {
+			$gte: dayRequested
+		}
+    })
+	.lean()
+    .populate('user', 'username img shortDescription')
+	.sort('date')
+    .limit(pageSize)
+    .skip(pageSize * Number(req.query.page))
+    .exec(function (err, events) {
+        if (err) return res.send(500, err.message);
+        res.status(200).jsonp(events);
+    });
+};
