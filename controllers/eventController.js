@@ -9,6 +9,30 @@ var eventModel = mongoose.model('eventModel');
 
 var pageSize=config.pageSize;
 
+
+exports.getCategoriesList = function(req, res) {
+	var categoriesList=[
+		{
+			name: "esport"
+		},
+		{
+			name: "xerrada"
+		},
+		{
+			name: "taller"
+		},
+		{
+			name: "festa"
+		},
+		{
+			name: "concert"
+		},
+		{
+			name: "musica"
+		}
+	]
+    res.status(200).jsonp(categoriesList);
+};
 exports.getAllEvents = function(req, res) {
 	eventModel.find({
 		date: {$gte: new Date()},
@@ -71,6 +95,7 @@ exports.addEvent = function(req, res) {
 			    date:   req.body.date,
 			    categories:   req.body.categories,
 			    generateddate: Date(),
+				location: req.body.location,
 			    user:   user._id
 			});
 
@@ -154,6 +179,8 @@ exports.getEventsByFollowingArray = function(req, res) {
         date: {$gte: new Date()},
         'username': req.body.users
     })
+	.lean()
+    .populate('user', 'username img shortDescription')
 	.sort('date')
     .limit(pageSize)
     .skip(pageSize * Number(req.query.page))
@@ -173,6 +200,8 @@ exports.getEventsByCategory = function(req, res) {
         date: {$gte: new Date()},
         'categories.name': req.params.category
     })
+	.lean()
+    .populate('user', 'username img shortDescription')
 	.sort('date')
     .limit(pageSize)
     .skip(pageSize * Number(req.query.page))

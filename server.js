@@ -68,6 +68,8 @@ apiRoutes.route('/events/following')
 apiRoutes.route('/events/category/:category')
     .get(eventCtrl.getEventsByCategory);
 
+apiRoutes.route('/categoriesList')
+    .get(eventCtrl.getCategoriesList);
 // route middleware to verify a token
 apiRoutes.use(function(req, res, next) {
     // check header or url parameters or post parameters for token
