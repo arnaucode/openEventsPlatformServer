@@ -175,9 +175,14 @@ això retorna els events d'aquests users que segueixes
 */
 
 exports.getEventsByFollowingArray = function(req, res) {
+	if(req.body.users==null)
+	{
+		res.status(200).jsonp(null);
+	}
 	eventModel.find({
         date: {$gte: new Date()},
-        'username': req.body.users
+        'user': req.body.users,
+		type: {$nin: ["alert"]}//cal filtrar per type d'event, aquí només agafem els type: alert
     })
 	.lean()
     .populate('user', 'username img shortDescription')
