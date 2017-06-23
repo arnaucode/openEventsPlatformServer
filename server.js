@@ -17,10 +17,13 @@ mongoose.connect(config.database, function(err, res) {
 app.set('superSecret', config.secret); // secret variable
 
 // Middlewares
-app.use(bodyParser.urlencoded({
+/*app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json());*/
+
+app.use(bodyParser.json({limit: '2mb'}));
+app.use(bodyParser.urlencoded({limit: '2mb', extended: true}));
 app.use(methodOverride());
 
 // use morgan to log requests to the console

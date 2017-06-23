@@ -3,7 +3,7 @@ module.exports = {
     'database': process.env.MONGO_DSN,*/
     'secret': 'secretfortoken',// local version
     'database': 'mongodb://localhost/openeventsplatform',
-    "port" : process.env.PORT || 3000,
+    "port" : process.env.PORT || 3001,
     "pageSize": 20
 
 };
