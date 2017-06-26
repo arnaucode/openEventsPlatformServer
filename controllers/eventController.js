@@ -30,7 +30,7 @@ exports.getCategoriesList = function(req, res) {
         {
             name: "musica"
         }
-    ]
+    ];
     res.status(200).jsonp(categoriesList);
 };
 exports.getAllEvents = function(req, res) {
@@ -117,7 +117,9 @@ function postImage(req, res, user, filename, fileImg) {
 }
 function addNewEvent(req, res, user, imgUrl){
     //adding random number to the url, to force ionic reload the image
-    req.body.img = imgUrl+ "?" + getRandomInt(1, 9999);
+    if(imgUrl!=""){
+        req.body.img = imgUrl+ "?" + getRandomInt(1, 9999);
+    }
 	var event = new eventModel({
 		title: req.body.title,
 		description: req.body.description,
